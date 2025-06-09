@@ -14,6 +14,10 @@ export class PlaylistComponent implements OnInit {
   playlists: Playlist[] = [];
   filteredPlaylists: Playlist[] = [];
   searchTerm = '';
+  selectedPlaylist: Playlist | null = null;
+  showMusicList = false;
+  availableMusics: string[] = []; // nomes das músicas
+  selectedMusicToAdd = '';
 
   constructor(private playlistService: PlaylistService) {}
 
@@ -51,8 +55,11 @@ export class PlaylistComponent implements OnInit {
   }
 
   openAddMusic(playlist: Playlist) {
-    // abrir modal para adicionar música na playlist
-    alert(`Adicionar música na playlist: ${playlist.nome}`);
+    this.selectedPlaylist = playlist;
+    this.showMusicList = true;
+
+    // TODO: Substituir pela busca real na API de músicas
+    this.availableMusics = ['Música 1', 'Música 2', 'Música 3'];
   }
 
   deletePlaylist(nome: string) {
@@ -66,5 +73,19 @@ export class PlaylistComponent implements OnInit {
         },
       });
     }
+  }
+  addMusicToPlaylist(nomePlaylist: string, nomeMusic: string) {
+    this.playlistService.addMusicToPlaylist(nomePlaylist, nomeMusic).subscribe({
+      next: () => {
+        alert(`Música "${nomeMusic}" adicionada à playlist "${nomePlaylist}"`);
+        this.selectedMusicToAdd = '';
+        this.showMusicList = false;
+        this.selectedPlaylist = null;
+        // se quiser, pode recarregar as playlists aqui
+      },
+      error: (err) => {
+        console.error('Erro ao adicionar música', err);
+      },
+    });
   }
 }

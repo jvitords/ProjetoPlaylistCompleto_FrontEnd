@@ -1,4 +1,5 @@
 <div class="playlist-container">
+  <!-- Barra de busca e botão de adicionar -->
   <div class="header">
     <input
       type="text"
@@ -10,6 +11,7 @@
     <button (click)="openAddPlaylist()" class="btn-add">Adicionar</button>
   </div>
 
+  <!-- Lista de playlists -->
   <div class="playlist-grid">
     <div *ngFor="let playlist of filteredPlaylists" class="playlist-card">
       <h3>{{ playlist.nome }}</h3>
@@ -21,6 +23,28 @@
           Excluir
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- Painel para adicionar música -->
+  <div *ngIf="showMusicList && selectedPlaylist" class="add-music-panel">
+    <h3>Adicionar música para: {{ selectedPlaylist.nome }}</h3>
+
+    <label for="musicSelect">Escolha uma música:</label>
+    <select id="musicSelect" [(ngModel)]="selectedMusicToAdd">
+      <option *ngFor="let music of availableMusics" [value]="music">
+        {{ music }}
+      </option>
+    </select>
+
+    <div class="add-music-actions">
+      <button
+        (click)="addMusicToPlaylist(selectedPlaylist.nome, selectedMusicToAdd)"
+        [disabled]="!selectedMusicToAdd"
+      >
+        Adicionar
+      </button>
+      <button (click)="showMusicList = false">Cancelar</button>
     </div>
   </div>
 </div>

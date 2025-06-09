@@ -84,3 +84,32 @@
   background-color: #dc3545; /* excluir - vermelho */
   color: white;
 }
+.add-music-panel {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.add-music-panel h3 {
+  margin-top: 0;
+}
+
+.add-music-panel select {
+  margin: 8px 0;
+  padding: 6px;
+  width: 100%;
+}
+
+.add-music-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.add-music-actions button {
+  padding: 6px 12px;
+}
