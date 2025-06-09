@@ -13,6 +13,7 @@
   <div class="playlist-grid">
     <div *ngFor="let playlist of filteredPlaylists" class="playlist-card">
       <h3>{{ playlist.nome }}</h3>
+      <h5>{{ playlist.descricao }}</h5>
       <div class="card-buttons">
         <button (click)="openEditPlaylist(playlist)">Editar</button>
         <button (click)="openAddMusic(playlist)">Adicionar Música</button>

@@ -1,1 +1,56 @@
-<p>music works!</p>
+<div class="music-container">
+  <div class="top-bar">
+    <input
+      [(ngModel)]="search"
+      (input)="searchMusic()"
+      placeholder="Buscar música..."
+    />
+    <button (click)="toggleForm()">Adicionar Música</button>
+  </div>
+
+  <div *ngIf="showForm" class="form-container">
+    <form (ngSubmit)="onSubmit()">
+      <input
+        [(ngModel)]="newMusic.titulo"
+        name="titulo"
+        placeholder="Título"
+        required
+      />
+      <input
+        [(ngModel)]="newMusic.artista"
+        name="artista"
+        placeholder="Artista"
+        required
+      />
+      <input
+        [(ngModel)]="newMusic.album"
+        name="album"
+        placeholder="Álbum"
+        required
+      />
+      <input
+        [(ngModel)]="newMusic.ano"
+        name="ano"
+        type="number"
+        placeholder="Ano"
+        required
+      />
+      <input
+        [(ngModel)]="newMusic.genero"
+        name="genero"
+        placeholder="Gênero"
+        required
+      />
+      <button type="submit">Salvar</button>
+    </form>
+  </div>
+
+  <div class="music-list">
+    <div *ngFor="let music of musicList" class="music-card">
+      <h4>{{ music.titulo }}</h4>
+      <p>{{ music.artista }} - {{ music.album }}</p>
+      <small>{{ music.genero }}</small>
+      <button (click)="deleteMusic(music.id)">Excluir</button>
+    </div>
+  </div>
+</div>

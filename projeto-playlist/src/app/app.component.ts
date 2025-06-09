@@ -7,9 +7,6 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterModule, RouterOutlet],
   template: `
-    <header>
-      <h1>Projeto Playlist</h1>
-    </header>
     <main>
       <router-outlet></router-outlet>
     </main>
