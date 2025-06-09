@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
-import { AuthService } from '../services/auth.service'; // ajuste o caminho
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-layout',
@@ -61,12 +61,12 @@ import { AuthService } from '../services/auth.service'; // ajuste o caminho
         background-color: #084298;
       }
       .sidebar li:last-child a {
-        color: #dc3545; /* texto vermelho */
-        background-color: transparent; /* sem fundo */
+        color: #dc3545;
+        background-color: transparent;
       }
 
       .sidebar li:last-child a:hover {
-        color: #a71d2a; /* vermelho mais escuro no hover */
+        color: #a71d2a;
         background-color: transparent;
       }
 
@@ -83,7 +83,7 @@ export class LayoutComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onLogout(event: Event) {
-    event.preventDefault(); // evita o salto da página ao clicar no link
+    event.preventDefault();
     this.authService.logout().subscribe({
       next: () => {
         console.log('Logout realizado, navegando para login...');

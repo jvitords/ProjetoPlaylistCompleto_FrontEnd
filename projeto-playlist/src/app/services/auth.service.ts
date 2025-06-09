@@ -15,7 +15,7 @@ interface LoginResponse {
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:8080/auth'; // ajuste se precisar
+  private baseUrl = 'http://localhost:8080/auth';
 
   constructor(private http: HttpClient) {}
 

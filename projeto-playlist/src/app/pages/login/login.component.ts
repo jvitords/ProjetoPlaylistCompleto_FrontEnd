@@ -22,7 +22,7 @@ export class LoginComponent {
     this.errorMessage = '';
     this.authService.login(this.username, this.password).subscribe({
       next: () => {
-        this.router.navigate(['/playlist']); // ajustar pra rota da playlist depois
+        this.router.navigate(['/playlist']);
       },
       error: (err) => {
         this.errorMessage = 'Usuário ou senha inválidos';

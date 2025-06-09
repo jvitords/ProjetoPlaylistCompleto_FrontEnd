@@ -14,7 +14,7 @@ export class PlaylistComponent implements OnInit {
   playlists: Playlist[] = [];
   filteredPlaylists: Playlist[] = [];
   searchTerm = '';
-  playlistMusics: { [playlistName: string]: string[] } = {}; // playlist nome → array títulos
+  playlistMusics: { [playlistName: string]: string[] } = {};
   isAdding = false;
   newNome = '';
   newDescricao = '';
@@ -22,8 +22,6 @@ export class PlaylistComponent implements OnInit {
   playlistBeingEdited: Playlist | null = null;
   editedNome = '';
   editedDescricao = '';
-
-  // Variáveis para confirmação de exclusão
   showConfirmDelete = false;
   playlistToDelete: string | null = null;
 
@@ -119,13 +117,11 @@ export class PlaylistComponent implements OnInit {
     this.playlistBeingEdited = null;
   }
 
-  // Abre modal de confirmação
   confirmDelete(nome: string) {
     this.playlistToDelete = nome;
     this.showConfirmDelete = true;
   }
 
-  // Confirma exclusão
   deletePlaylist() {
     if (!this.playlistToDelete) return;
 
@@ -138,7 +134,6 @@ export class PlaylistComponent implements OnInit {
     });
   }
 
-  // Cancela exclusão e fecha modal
   cancelDelete() {
     this.showConfirmDelete = false;
     this.playlistToDelete = null;

@@ -64,13 +64,11 @@ export class MusicComponent {
     });
   }
 
-  // Abre modal para confirmar exclusão
   openConfirmDelete(id: number) {
     this.musicIdToDelete = id;
     this.showConfirmDelete = true;
   }
 
-  // Confirma e executa exclusão
   confirmDelete() {
     if (this.musicIdToDelete !== null) {
       this.musicService.delete(this.musicIdToDelete).subscribe(() => {
@@ -80,7 +78,6 @@ export class MusicComponent {
     }
   }
 
-  // Fecha modal sem excluir
   cancelDelete() {
     this.showConfirmDelete = false;
     this.musicIdToDelete = null;

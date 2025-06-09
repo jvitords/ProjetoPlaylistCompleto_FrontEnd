@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { PlaylistComponent } from './pages/playlist/playlist.component';
 import { MusicComponent } from './pages/music/music.component';
-import { LayoutComponent } from './layout/layout.component'; // ajuste o caminho conforme seu projeto
+import { LayoutComponent } from './layout/layout.component';
 
 export const routes: Routes = [
   {
