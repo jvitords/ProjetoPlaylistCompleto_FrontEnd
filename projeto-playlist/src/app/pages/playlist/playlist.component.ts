@@ -14,10 +14,18 @@ export class PlaylistComponent implements OnInit {
   playlists: Playlist[] = [];
   filteredPlaylists: Playlist[] = [];
   searchTerm = '';
-  selectedPlaylist: Playlist | null = null;
-  showMusicList = false;
-  availableMusics: string[] = []; // nomes das músicas
-  selectedMusicToAdd = '';
+  playlistMusics: { [playlistName: string]: string[] } = {}; // playlist nome → array títulos
+  isAdding = false;
+  newNome = '';
+  newDescricao = '';
+  isEditing = false;
+  playlistBeingEdited: Playlist | null = null;
+  editedNome = '';
+  editedDescricao = '';
+
+  // Variáveis para confirmação de exclusão
+  showConfirmDelete = false;
+  playlistToDelete: string | null = null;
 
   constructor(private playlistService: PlaylistService) {}
 
@@ -45,47 +53,94 @@ export class PlaylistComponent implements OnInit {
   }
 
   openAddPlaylist() {
-    // abrir modal ou redirecionar para página de criação
-    alert('Abrir tela para adicionar playlist');
+    this.isAdding = true;
+    this.newNome = '';
+    this.newDescricao = '';
+  }
+
+  saveNewPlaylist() {
+    if (!this.newNome.trim()) {
+      alert('O nome da playlist é obrigatório.');
+      return;
+    }
+
+    const newPlaylist: Partial<Playlist> = {
+      nome: this.newNome.trim(),
+      descricao: this.newDescricao.trim(),
+    };
+
+    this.playlistService.create(newPlaylist).subscribe({
+      next: () => {
+        alert('Playlist adicionada com sucesso!');
+        this.isAdding = false;
+        this.loadPlaylists();
+      },
+      error: (err) => {
+        console.error('Erro ao adicionar playlist', err);
+      },
+    });
+  }
+
+  cancelAdd() {
+    this.isAdding = false;
   }
 
   openEditPlaylist(playlist: Playlist) {
-    // abrir modal ou redirecionar para edição
-    alert(`Editar playlist: ${playlist.nome}`);
+    this.isEditing = true;
+    this.playlistBeingEdited = playlist;
+    this.editedNome = playlist.nome;
+    this.editedDescricao = playlist.descricao;
   }
 
-  openAddMusic(playlist: Playlist) {
-    this.selectedPlaylist = playlist;
-    this.showMusicList = true;
+  saveEdit() {
+    if (!this.playlistBeingEdited) return;
 
-    // TODO: Substituir pela busca real na API de músicas
-    this.availableMusics = ['Música 1', 'Música 2', 'Música 3'];
-  }
+    const updatedData: Partial<Playlist> = {
+      nome: this.editedNome,
+      descricao: this.editedDescricao,
+    };
 
-  deletePlaylist(nome: string) {
-    if (confirm('Tem certeza que deseja excluir essa playlist?')) {
-      this.playlistService.delete(nome).subscribe({
-        next: () => {
+    this.playlistService
+      .update(this.playlistBeingEdited.nome, updatedData)
+      .subscribe({
+        next: (updatedPlaylist) => {
+          this.isEditing = false;
+          this.playlistBeingEdited = null;
           this.loadPlaylists();
         },
         error: (err) => {
-          console.error('Erro ao excluir playlist', err);
+          console.error('Erro ao atualizar playlist', err);
         },
       });
-    }
   }
-  addMusicToPlaylist(nomePlaylist: string, nomeMusic: string) {
-    this.playlistService.addMusicToPlaylist(nomePlaylist, nomeMusic).subscribe({
+
+  cancelEdit() {
+    this.isEditing = false;
+    this.playlistBeingEdited = null;
+  }
+
+  // Abre modal de confirmação
+  confirmDelete(nome: string) {
+    this.playlistToDelete = nome;
+    this.showConfirmDelete = true;
+  }
+
+  // Confirma exclusão
+  deletePlaylist() {
+    if (!this.playlistToDelete) return;
+
+    this.playlistService.delete(this.playlistToDelete).subscribe({
       next: () => {
-        alert(`Música "${nomeMusic}" adicionada à playlist "${nomePlaylist}"`);
-        this.selectedMusicToAdd = '';
-        this.showMusicList = false;
-        this.selectedPlaylist = null;
-        // se quiser, pode recarregar as playlists aqui
+        this.loadPlaylists();
+        this.cancelDelete();
       },
-      error: (err) => {
-        console.error('Erro ao adicionar música', err);
-      },
+      error: (err) => console.error('Erro ao excluir playlist', err),
     });
+  }
+
+  // Cancela exclusão e fecha modal
+  cancelDelete() {
+    this.showConfirmDelete = false;
+    this.playlistToDelete = null;
   }
 }

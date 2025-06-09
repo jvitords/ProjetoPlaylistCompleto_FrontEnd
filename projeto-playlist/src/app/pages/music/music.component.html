@@ -1,56 +1,73 @@
 <div class="music-container">
-  <div class="top-bar">
+  <div class="header">
     <input
+      type="text"
+      placeholder="Buscar música..."
       [(ngModel)]="search"
       (input)="searchMusic()"
-      placeholder="Buscar música..."
+      class="search-input"
     />
-    <button (click)="toggleForm()">Adicionar Música</button>
+    <button (click)="toggleForm()" class="btn-add">
+      {{ showForm ? "Cancelar" : "Adicionar" }}
+    </button>
   </div>
 
   <div *ngIf="showForm" class="form-container">
+    <h3>Adicionar Música</h3>
     <form (ngSubmit)="onSubmit()">
+      <label>Título:</label>
+      <input type="text" [(ngModel)]="newMusic.titulo" name="titulo" required />
+
+      <label>Artista:</label>
       <input
-        [(ngModel)]="newMusic.titulo"
-        name="titulo"
-        placeholder="Título"
-        required
-      />
-      <input
+        type="text"
         [(ngModel)]="newMusic.artista"
         name="artista"
-        placeholder="Artista"
         required
       />
+
+      <label>Álbum:</label>
+      <input type="text" [(ngModel)]="newMusic.album" name="album" />
+
+      <label>Ano:</label>
       <input
-        [(ngModel)]="newMusic.album"
-        name="album"
-        placeholder="Álbum"
-        required
-      />
-      <input
+        type="number"
         [(ngModel)]="newMusic.ano"
         name="ano"
-        type="number"
-        placeholder="Ano"
+        min="1900"
+        max="2100"
         required
       />
-      <input
-        [(ngModel)]="newMusic.genero"
-        name="genero"
-        placeholder="Gênero"
-        required
-      />
-      <button type="submit">Salvar</button>
+
+      <label>Gênero:</label>
+      <input type="text" [(ngModel)]="newMusic.genero" name="genero" />
+
+      <button type="submit" class="btn-save">Salvar</button>
     </form>
   </div>
 
-  <div class="music-list">
+  <div class="music-grid">
     <div *ngFor="let music of musicList" class="music-card">
-      <h4>{{ music.titulo }}</h4>
-      <p>{{ music.artista }} - {{ music.album }}</p>
-      <small>{{ music.genero }}</small>
-      <button (click)="deleteMusic(music.id)">Excluir</button>
+      <h3>{{ music.titulo }}</h3>
+      <h5>{{ music.artista }} - {{ music.album }}</h5>
+      <p>
+        <strong>Ano:</strong> {{ music.ano }} | <strong>Gênero:</strong>
+        {{ music.genero }}
+      </p>
+      <div class="card-buttons">
+        <button (click)="openConfirmDelete(music.id)" class="btn-delete">
+          Excluir
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de confirmação de exclusão -->
+  <div *ngIf="showConfirmDelete" class="modal-overlay">
+    <div class="modal-content">
+      <p>Tem certeza que deseja excluir esta música?</p>
+      <button (click)="confirmDelete()" class="btn-save">Sim</button>
+      <button (click)="cancelDelete()" class="btn-cancel">Não</button>
     </div>
   </div>
 </div>

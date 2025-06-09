@@ -2,10 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface Musica {
+  titulo: string;
+  artista?: string;
+  album?: string;
+  ano?: number;
+  genero?: string;
+}
+
 export interface Playlist {
   id: number;
   nome: string;
   descricao: string;
+  musicas?: Musica[];
 }
 
 @Injectable({
@@ -20,10 +29,13 @@ export class PlaylistService {
     return this.http.get<Playlist[]>(this.baseUrl, { withCredentials: true });
   }
 
-  getByName(nome: string): Observable<Playlist> {
-    return this.http.get<Playlist>(`${this.baseUrl}/${nome}`, {
-      withCredentials: true,
-    });
+  getPlaylistByName(nome: string): Observable<Playlist> {
+    return this.http.get<Playlist>(
+      `${this.baseUrl}/${encodeURIComponent(nome)}`,
+      {
+        withCredentials: true,
+      }
+    );
   }
 
   create(playlist: Partial<Playlist>): Observable<Playlist> {
@@ -33,15 +45,22 @@ export class PlaylistService {
   }
 
   update(nome: string, playlist: Partial<Playlist>): Observable<Playlist> {
-    return this.http.put<Playlist>(`${this.baseUrl}/${nome}`, playlist, {
-      withCredentials: true,
-    });
+    return this.http.put<Playlist>(
+      `${this.baseUrl}/${encodeURIComponent(nome)}`,
+      playlist,
+      {
+        withCredentials: true,
+      }
+    );
   }
 
   delete(nome: string): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${nome}`, {
-      withCredentials: true,
-    });
+    return this.http.delete<void>(
+      `${this.baseUrl}/${encodeURIComponent(nome)}`,
+      {
+        withCredentials: true,
+      }
+    );
   }
 
   addMusicToPlaylist(
@@ -51,7 +70,7 @@ export class PlaylistService {
     return this.http.post<void>(
       `${this.baseUrl}/${encodeURIComponent(
         nomePlaylist
-      )}/music/${encodeURIComponent(nomeMusic)}`,
+      )}/musica/${encodeURIComponent(nomeMusic)}`,
       null,
       { withCredentials: true }
     );

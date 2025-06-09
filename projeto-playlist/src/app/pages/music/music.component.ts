@@ -24,6 +24,10 @@ export class MusicComponent {
     genero: '',
   };
 
+  // Controle do modal de exclusão
+  showConfirmDelete: boolean = false;
+  musicIdToDelete: number | null = null;
+
   constructor(private musicService: MusicService) {}
 
   ngOnInit() {
@@ -60,9 +64,25 @@ export class MusicComponent {
     });
   }
 
-  deleteMusic(id: number) {
-    if (confirm('Deseja realmente excluir esta música?')) {
-      this.musicService.delete(id).subscribe(() => this.loadMusic());
+  // Abre modal para confirmar exclusão
+  openConfirmDelete(id: number) {
+    this.musicIdToDelete = id;
+    this.showConfirmDelete = true;
+  }
+
+  // Confirma e executa exclusão
+  confirmDelete() {
+    if (this.musicIdToDelete !== null) {
+      this.musicService.delete(this.musicIdToDelete).subscribe(() => {
+        this.loadMusic();
+        this.cancelDelete();
+      });
     }
+  }
+
+  // Fecha modal sem excluir
+  cancelDelete() {
+    this.showConfirmDelete = false;
+    this.musicIdToDelete = null;
   }
 }
