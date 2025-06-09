@@ -1,0 +1,85 @@
+/* Centraliza todo o conteúdo e cria fundo degradê */
+.login-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #4a90e2, #007acc);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  padding: 1rem;
+}
+
+/* Título */
+.login-container h2 {
+  margin-bottom: 2rem;
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Formulário branco, com cantos arredondados e sombra */
+form {
+  background: #fff;
+  color: #333;
+  padding: 2rem 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Divs internas com label + input */
+form > div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label estilizado */
+label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+/* Inputs estilizados */
+input {
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  border: 1.5px solid #ccc;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #007acc;
+  outline: none;
+}
+
+/* Botão estilizado */
+button {
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  background-color: #007acc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+
+/* Mensagem de erro vermelha */
+.error {
+  margin-top: 0.5rem;
+  color: #d93025;
+  font-weight: 600;
+  text-align: center;
+}
