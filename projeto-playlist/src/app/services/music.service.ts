@@ -16,8 +16,8 @@ export class MusicService {
     return this.http.get<Music[]>(url, { withCredentials: true });
   }
 
-  getById(id: number): Observable<Music> {
-    return this.http.get<Music>(`${this.baseUrl}/${id}`, {
+  getById(titulo: string): Observable<Music> {
+    return this.http.get<Music>(`${this.baseUrl}/${titulo}`, {
       withCredentials: true,
     });
   }
@@ -34,8 +34,8 @@ export class MusicService {
     });
   }
 
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`, {
+  delete(titulo: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${titulo}`, {
       withCredentials: true,
     });
   }

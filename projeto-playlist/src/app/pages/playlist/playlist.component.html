@@ -12,19 +12,66 @@
 
   <div class="playlist-grid">
     <div *ngFor="let playlist of filteredPlaylists" class="playlist-card">
-      <h3>{{ playlist.nome }}</h3>
+      <!-- Ao clicar no nome da playlist abre o modal -->
+      <h3
+        (click)="abrirPlaylist(playlist); mostrarModalPlaylist = true"
+        style="cursor: pointer"
+      >
+        {{ playlist.nome }}
+      </h3>
       <h5>{{ playlist.descricao }}</h5>
 
       <div class="card-buttons">
         <button (click)="openEditPlaylist(playlist)">Editar</button>
+        <button
+          (click)="nomePlaylist = playlist.nome; abrirModal()"
+          class="btn-add-music"
+        >
+          Adicionar Música
+        </button>
         <button (click)="confirmDelete(playlist.nome)" class="btn-delete">
           Excluir
         </button>
       </div>
     </div>
   </div>
+
+  <!-- Modal playlist no estilo dos outros modais -->
+  <div *ngIf="mostrarModalPlaylist" class="modal-overlay">
+    <div class="modal-content">
+      <span
+        class="close"
+        (click)="mostrarModalPlaylist = false"
+        style="align-self: flex-end; cursor: pointer; font-size: 1.5rem"
+        >&times;</span
+      >
+      <h2 class="ttl_musica">{{ playlistSelecionada?.nome }}</h2>
+      <h3>Músicas da Playlist</h3>
+      <ul>
+        <li *ngFor="let musica of musicasDaPlaylist">
+          {{ musica.titulo }} - {{ musica.artista }}
+          <button
+            *ngIf="playlistSelecionada?.nome"
+            (click)="removeMusic(playlistSelecionada!.nome, musica.titulo)"
+            style="
+              background-color: #dc3545;
+              color: white;
+              border: none;
+              padding: 8px 12px;
+              cursor: pointer;
+              font-size: 1rem;
+              border-radius: 4px;
+            "
+          >
+            Excluir
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
 
+<!-- Modal: Adicionar Playlist -->
 <div *ngIf="isAdding" class="modal-overlay">
   <div class="modal-content">
     <h3>Adicionar Playlist</h3>
@@ -37,6 +84,7 @@
   </div>
 </div>
 
+<!-- Modal: Editar Playlist -->
 <div *ngIf="isEditing" class="modal-overlay">
   <div class="modal-content">
     <h3>Editar Playlist</h3>
@@ -49,10 +97,29 @@
   </div>
 </div>
 
+<!-- Modal: Confirmar Exclusão -->
 <div *ngIf="showConfirmDelete" class="modal-overlay">
   <div class="modal-content">
     <p>Tem certeza que deseja excluir esta playlist?</p>
     <button (click)="deletePlaylist()">Sim</button>
     <button (click)="cancelDelete()">Não</button>
+  </div>
+</div>
+
+<!-- ✅ Modal: Adicionar música à playlist -->
+<div *ngIf="mostrarModal" class="modal-overlay">
+  <div class="modal-content">
+    <h3>Adicionar músicas a playlist: {{ nomePlaylist }}</h3>
+
+    <ul>
+      <li *ngFor="let musica of musicasDisponiveis">
+        {{ musica.titulo }} - {{ musica.artista }}
+        <button (click)="adicionarMusica(musica.titulo)" class="btn-add-music">
+          Adicionar
+        </button>
+      </li>
+    </ul>
+
+    <button (click)="fecharModal()">Fechar</button>
   </div>
 </div>

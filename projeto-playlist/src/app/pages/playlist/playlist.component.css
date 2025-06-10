@@ -104,6 +104,10 @@
   background-color: #ffc107;
   color: #222;
 }
+.card-buttons button.btn-add-music {
+  background-color: #91e782;
+  color: #222;
+}
 
 .card-buttons button.btn-delete {
   background-color: #dc3545;
@@ -190,10 +194,31 @@
 .modal-content button:last-of-type:hover {
   background-color: #5a6268;
 }
+.modal-content button.btn-add-music {
+  background-color: #91e782;
+}
 
 .modal-content p {
   font-size: 1.05rem;
   color: #333;
   text-align: center;
   margin: 0 0 12px 0;
+}
+
+.ttl_musica {
+  text-align: center;
+}
+
+.btn-excluir {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 4px;
+}
+
+.btn-excluir:hover {
+  background-color: darkred;
 }

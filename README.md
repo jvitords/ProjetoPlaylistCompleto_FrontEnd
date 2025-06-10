@@ -28,3 +28,10 @@ npm install
 # 4. Rode o servidor Angular
 
 ng serve
+
+# 5. Login e Senha
+
+Para acessar a aplicação use o login e senha já configurados:
+
+- Username: user@gmail.com
+- Password: user123

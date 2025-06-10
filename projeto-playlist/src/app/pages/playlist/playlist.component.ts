@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PlaylistService, Playlist } from '../../services/playlist.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Music } from '../../models/music.model';
+import { MusicService } from '../../services/music.service';
 
 @Component({
   selector: 'app-playlist',
@@ -24,8 +26,17 @@ export class PlaylistComponent implements OnInit {
   editedDescricao = '';
   showConfirmDelete = false;
   playlistToDelete: string | null = null;
+  nomePlaylist = 'MinhaPlaylist';
+  musicasDisponiveis: Music[] = [];
+  mostrarModal = false;
+  playlistSelecionada: Playlist | null = null;
+  musicasDaPlaylist: Music[] = [];
+  mostrarModalPlaylist = false;
 
-  constructor(private playlistService: PlaylistService) {}
+  constructor(
+    private playlistService: PlaylistService,
+    private musicaService: MusicService
+  ) {}
 
   ngOnInit() {
     this.loadPlaylists();
@@ -69,7 +80,6 @@ export class PlaylistComponent implements OnInit {
 
     this.playlistService.create(newPlaylist).subscribe({
       next: () => {
-        alert('Playlist adicionada com sucesso!');
         this.isAdding = false;
         this.loadPlaylists();
       },
@@ -137,5 +147,55 @@ export class PlaylistComponent implements OnInit {
   cancelDelete() {
     this.showConfirmDelete = false;
     this.playlistToDelete = null;
+  }
+
+  abrirModal() {
+    this.musicaService.getAllOrByName().subscribe({
+      next: (musicas) => {
+        this.musicasDisponiveis = musicas;
+        this.mostrarModal = true;
+      },
+      error: () => alert('Erro ao buscar músicas.'),
+    });
+  }
+
+  fecharModal() {
+    this.mostrarModal = false;
+  }
+
+  adicionarMusica(nomeMusica: string) {
+    this.playlistService
+      .addMusicToPlaylist(this.nomePlaylist, nomeMusica)
+      .subscribe({
+        next: () => this.fecharModal(),
+        error: () => alert('Erro ao adicionar música.'),
+      });
+  }
+
+  abrirPlaylist(playlist: Playlist) {
+    this.playlistService.getPlaylistByName(playlist.nome).subscribe({
+      next: (playlistCompleta) => {
+        this.playlistSelecionada = playlistCompleta;
+        this.musicasDaPlaylist = playlistCompleta.musicas || [];
+      },
+      error: (err) => {
+        console.error('Erro ao carregar playlist completa', err);
+        this.playlistSelecionada = null;
+        this.musicasDaPlaylist = [];
+      },
+    });
+  }
+
+  removeMusic(nomePlaylist: string, nomeMusic: string) {
+    this.playlistService
+      .removeMusicFromPlaylist(nomePlaylist, nomeMusic)
+      .subscribe({
+        next: () => {
+          this.musicasDaPlaylist = this.musicasDaPlaylist.filter(
+            (musica) => musica.titulo !== nomeMusic
+          );
+        },
+        error: (err) => console.error('Erro ao excluir música:', err),
+      });
   }
 }

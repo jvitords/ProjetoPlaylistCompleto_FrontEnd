@@ -1,20 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-export interface Musica {
-  titulo: string;
-  artista?: string;
-  album?: string;
-  ano?: number;
-  genero?: string;
-}
+import { Music } from '../models/music.model';
 
 export interface Playlist {
   id: number;
   nome: string;
   descricao: string;
-  musicas?: Musica[];
+  musicas?: Music[];
 }
 
 @Injectable({
@@ -70,7 +63,7 @@ export class PlaylistService {
     return this.http.post<void>(
       `${this.baseUrl}/${encodeURIComponent(
         nomePlaylist
-      )}/musica/${encodeURIComponent(nomeMusic)}`,
+      )}/music/${encodeURIComponent(nomeMusic)}`,
       null,
       { withCredentials: true }
     );

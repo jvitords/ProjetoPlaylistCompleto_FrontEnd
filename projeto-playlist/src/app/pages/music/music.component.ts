@@ -26,7 +26,7 @@ export class MusicComponent {
 
   // Controle do modal de exclusão
   showConfirmDelete: boolean = false;
-  musicIdToDelete: number | null = null;
+  musicToDelete: string | null = null;
 
   constructor(private musicService: MusicService) {}
 
@@ -64,14 +64,14 @@ export class MusicComponent {
     });
   }
 
-  openConfirmDelete(id: number) {
-    this.musicIdToDelete = id;
+  openConfirmDelete(titulo: string) {
+    this.musicToDelete = titulo;
     this.showConfirmDelete = true;
   }
 
   confirmDelete() {
-    if (this.musicIdToDelete !== null) {
-      this.musicService.delete(this.musicIdToDelete).subscribe(() => {
+    if (this.musicToDelete !== null) {
+      this.musicService.delete(this.musicToDelete).subscribe(() => {
         this.loadMusic();
         this.cancelDelete();
       });
@@ -80,6 +80,6 @@ export class MusicComponent {
 
   cancelDelete() {
     this.showConfirmDelete = false;
-    this.musicIdToDelete = null;
+    this.musicToDelete = null;
   }
 }
