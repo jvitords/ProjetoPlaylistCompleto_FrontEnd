@@ -37,12 +37,14 @@ import { AuthService } from '../services/auth.service';
         padding-top: 1.5rem;
         display: flex;
         flex-direction: column;
+        position: relative; /* <<< importante */
       }
       .sidebar ul {
         list-style: none;
         padding-left: 0;
         margin: 0;
-        flex-grow: 1;
+        overflow-y: auto; /* se a lista crescer, rola */
+        padding-bottom: 56px; /* reserva espaço pro botão fixado (ajuste se preciso) */
       }
       .sidebar li {
         margin: 0;
@@ -61,13 +63,21 @@ import { AuthService } from '../services/auth.service';
         background-color: #084298;
       }
       .sidebar li:last-child a {
-        color: #dc3545;
+        color: #de2134ff;
         background-color: transparent;
       }
 
       .sidebar li:last-child a:hover {
         color: #a71d2a;
         background-color: transparent;
+      }
+
+      .sidebar li:last-child {
+        position: absolute; /* tira do fluxo e fixa */
+        left: 0;
+        right: 0;
+        bottom: 0; /* cola no fim do nav */
+        margin: 0;
       }
 
       .main-content {
