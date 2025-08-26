@@ -3,6 +3,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { PlaylistComponent } from './pages/playlist/playlist.component';
 import { MusicComponent } from './pages/music/music.component';
 import { LayoutComponent } from './layout/layout.component';
+import { CadastroComponent } from './pages/cadastro/cadastro.component';
 
 export const routes: Routes = [
   // Redireciona raiz (/) para /login
@@ -13,11 +14,12 @@ export const routes: Routes = [
 
   // Layout com rotas protegidas ou internas
   {
-    path: '',
-    component: LayoutComponent,
+    path: '', // sempre que uma das rotas filhas for chamada, vai carregar a do layout(sidebar)
+    component: LayoutComponent, // vai sempre carregar o componente do sidebar junto com uma das rotas acessadas
     children: [
       { path: 'playlist', component: PlaylistComponent },
       { path: 'music', component: MusicComponent },
+      { path: 'cadastro', component: CadastroComponent },
     ],
   },
 

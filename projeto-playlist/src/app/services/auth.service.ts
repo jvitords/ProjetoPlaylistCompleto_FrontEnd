@@ -7,7 +7,7 @@ interface LoginRequest {
   password: string;
 }
 
-interface LoginResponse {
+interface AuthResponse {
   message: string;
 }
 
@@ -19,8 +19,9 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(username: string, password: string): Observable<{ message: string }> {
-    return this.http.post<{ message: string }>(
+  login(username: string, password: string): Observable<AuthResponse> {
+    // observable é quem recebe o status do back se foi 200 ou 401
+    return this.http.post<AuthResponse>(
       `${this.baseUrl}/login`,
       { username, password },
       { withCredentials: true }
@@ -31,6 +32,18 @@ export class AuthService {
     return this.http.post<void>(
       `${this.baseUrl}/logout`,
       {},
+      { withCredentials: true }
+    );
+  }
+
+  register(
+    username: string,
+    password: string,
+    roles: string[] = []
+  ): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(
+      `${this.baseUrl}/register`,
+      { username, password, roles },
       { withCredentials: true }
     );
   }

@@ -14,6 +14,11 @@ import { AuthService } from '../services/auth.service';
             <a routerLink="/playlist" routerLinkActive="active">Playlists</a>
           </li>
           <li><a routerLink="/music" routerLinkActive="active">Músicas</a></li>
+          <li>
+            <a routerLink="/cadastro" routerLinkActive="active"
+              >Cadastro de usuário</a
+            >
+          </li>
           <li><a href="#" (click)="onLogout($event)">Logout</a></li>
         </ul>
       </nav>
