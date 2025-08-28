@@ -36,14 +36,10 @@ export class AuthService {
     );
   }
 
-  register(
-    username: string,
-    password: string,
-    roles: string[] = []
-  ): Observable<AuthResponse> {
+  register(username: string, roles: string[] = []): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(
       `${this.baseUrl}/register`,
-      { username, password, roles },
+      { username, roles },
       { withCredentials: true }
     );
   }

@@ -12,7 +12,6 @@ import { CommonModule } from '@angular/common';
 })
 export class CadastroComponent {
   username = '';
-  password = '';
   roles: string[] = [];
 
   sucessMessage = '';
@@ -22,7 +21,7 @@ export class CadastroComponent {
 
   cadastrar() {
     this.errorMessage = '';
-    this.auth.register(this.username, this.password, this.roles).subscribe({
+    this.auth.register(this.username, this.roles).subscribe({
       next: () => {
         this.sucessMessage = 'Usuário criado com sucesso!';
         this.errorMessage = '';
