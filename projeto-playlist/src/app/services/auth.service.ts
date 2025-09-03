@@ -19,6 +19,15 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+  me(): Observable<{ username: string; roles: string[] }> {
+    return this.http.get<{ username: string; roles: string[] }>(
+      `${this.baseUrl}/me`,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
   login(username: string, password: string): Observable<AuthResponse> {
     // observable é quem recebe o status do back se foi 200 ou 401
     return this.http.post<AuthResponse>(
@@ -40,6 +49,14 @@ export class AuthService {
     return this.http.post<AuthResponse>(
       `${this.baseUrl}/register`,
       { username, roles },
+      { withCredentials: true }
+    );
+  }
+
+  alterarSenha(password: string): Observable<AuthResponse> {
+    return this.http.put<AuthResponse>(
+      `${this.baseUrl}/redefinir`,
+      { password },
       { withCredentials: true }
     );
   }

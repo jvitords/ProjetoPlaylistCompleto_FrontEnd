@@ -38,6 +38,14 @@
     </div>
   </div>
 
+  <!-- Opcional: mensagem caso não haja playlists -->
+  <div *ngIf="!playlists || playlists.length === 0">
+    <p>
+      Nenuma playlist encontrada. Clique em "Adicionar Playlist" para adicionar
+      uma nova
+    </p>
+  </div>
+
   <!-- Modal playlist no estilo dos outros modais -->
   <div *ngIf="mostrarModalPlaylist" class="modal-overlay">
     <div class="modal-content">
@@ -108,7 +116,7 @@
   </div>
 </div>
 
-<!-- ✅ Modal: Adicionar música à playlist -->
+<!-- Modal: Adicionar música à playlist -->
 <div *ngIf="mostrarModal" class="modal-overlay">
   <div class="modal-content">
     <h3>Adicionar músicas a playlist: {{ nomePlaylist }}</h3>

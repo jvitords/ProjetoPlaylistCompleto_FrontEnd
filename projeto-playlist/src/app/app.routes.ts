@@ -4,6 +4,7 @@ import { PlaylistComponent } from './pages/playlist/playlist.component';
 import { MusicComponent } from './pages/music/music.component';
 import { LayoutComponent } from './layout/layout.component';
 import { CadastroComponent } from './pages/cadastro/cadastro.component';
+import { AlterarSenhaComponent } from './dropdown/alterar-senha/alterar-senha.component';
 
 export const routes: Routes = [
   // Redireciona raiz (/) para /login
@@ -20,6 +21,7 @@ export const routes: Routes = [
       { path: 'playlist', component: PlaylistComponent },
       { path: 'music', component: MusicComponent },
       { path: 'cadastro', component: CadastroComponent },
+      { path: 'alterar-senha', component: AlterarSenhaComponent },
     ],
   },
 

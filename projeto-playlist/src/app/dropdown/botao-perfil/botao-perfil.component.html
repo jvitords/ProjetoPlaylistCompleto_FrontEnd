@@ -1,0 +1,11 @@
+<div class="perfil-container">
+  <div class="perfil-header" (click)="abrirMenu()">
+    <span class="perfil-texto">Perfil</span>
+    <img src="assets/user.png" alt="Perfil" class="perfil-img" />
+  </div>
+
+  <div class="perfil-menu" *ngIf="menuAberto">
+    <button (click)="alterarSenha()">Alterar Senha</button>
+    <button class="btn-logout" (click)="onLogout($event)">Logout</button>
+  </div>
+</div>

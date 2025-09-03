@@ -62,6 +62,10 @@
     </div>
   </div>
 
+  <div *ngIf="!musicList || musicList.length === 0">
+    Nenhuma música encontrada.
+  </div>
+
   <div *ngIf="showConfirmDelete" class="modal-overlay">
     <div class="modal-content">
       <p>Tem certeza que deseja excluir esta música?</p>

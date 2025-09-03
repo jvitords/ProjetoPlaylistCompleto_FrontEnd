@@ -1,0 +1,30 @@
+<div class="app-container">
+  <!-- Sidebar à esquerda -->
+  <nav class="sidebar">
+    <ul>
+      <li>
+        <a routerLink="/playlist" routerLinkActive="active">Playlists</a>
+      </li>
+      <li><a routerLink="/music" routerLinkActive="active">Músicas</a></li>
+      <li>
+        <a *ngIf="isAdmin()" routerLink="/cadastro" routerLinkActive="active"
+          >Cadastro de usuário</a
+        >
+      </li>
+      <li>{{ username || "Perfil" }}</li>
+    </ul>
+  </nav>
+
+  <!-- Área principal -->
+  <div class="main">
+    <!-- Topbar -->
+    <div class="topbar">
+      <app-botao-perfil></app-botao-perfil>
+    </div>
+
+    <!-- Conteúdo das rotas -->
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
