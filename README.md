@@ -19,6 +19,7 @@ As últimas melhorias focaram na experiência do usuário e no controle de acess
 ### - Cadastro de Usuário (somente ADMIN)
 
 - O botão e a página de cadastro de novos usuários só aparecem para usuários com role **ADMIN**.
+- Ao criar um novo usuário já vem com a senha Redefina@01
 
 ### - Página de Redefinir Senha
 
@@ -48,11 +49,11 @@ Siga os passos abaixo para rodar o projeto localmente.
 
 # 1. Clone este repositório
 
-git clone https://github.com/jvitords/ProvaPlaylistFrontEnd.git
+git clone https://github.com/jvitords/ProjetoPlaylistCompleto_BackEnd.git
 
 # 2. Acesse a pasta do projeto
 
-cd ProjetoPlaylistFront
+cd projeto-playlist
 
 # 3. Instale as dependências
 
